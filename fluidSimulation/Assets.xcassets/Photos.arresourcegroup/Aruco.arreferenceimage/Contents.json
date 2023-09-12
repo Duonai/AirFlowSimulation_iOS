@@ -1,0 +1,16 @@
+{
+  "images" : [
+    {
+      "filename" : "Aruco.JPG",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "unit" : "centimeters",
+    "width" : 17.999905660377358
+  }
+}
