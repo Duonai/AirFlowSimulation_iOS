@@ -41,7 +41,7 @@ class Communication {
     private var occupancyGridTemp : [Bool]?
     private var changeOccIndex = [UInt32]()
     
-    // Send data - VIM
+    // Send data - BIM
     private var distXL:Float = Float(0.0)
     private var distXR:Float = Float(0.0)
     private var distYU:Float = Float(0.0)
@@ -126,7 +126,7 @@ class Communication {
         connectType = Type.provideSpaceInfo
     }
     
-    func initializeForVIM(gridSizeX:Int, gridSizeY:Int, gridSizeZ:Int, distXL:Float, distXR:Float, distYU:Float, distYD:Float, roomSizeX:Float, roomSizeY:Float, roomSizeZ:Float, roomNum:UInt16){
+    func initializeForBIM(gridSizeX:Int, gridSizeY:Int, gridSizeZ:Int, distXL:Float, distXR:Float, distYU:Float, distYD:Float, roomSizeX:Float, roomSizeY:Float, roomSizeZ:Float, roomNum:UInt16){
         self.gridSizeX = gridSizeX
         self.gridSizeY = gridSizeY
         self.gridSizeZ = gridSizeZ
@@ -146,7 +146,7 @@ class Communication {
         occupancyGrid.reserveCapacity(gridSize3)
         occupancyGrid = [Bool].init(repeating: false, count: gridSize3)
         
-        connectType = Type.storeVIM
+        connectType = Type.storeBIM
     }
     
     func storeAddr(address: String){
@@ -235,8 +235,8 @@ class Communication {
         return connectDone
     }
     
-    func setRequestVIMType() {
-        self.connectType = Type.requestVIM
+    func setRequestBIMType() {
+        self.connectType = Type.requestBIM
     }
     
     func setRoomNum(RoomNum:UInt16) {
@@ -378,13 +378,13 @@ class Communication {
                 //print("space")
                 receive()
             }
-        case Type.storeVIM:
+        case Type.storeBIM:
             if(sendSaveBIM())
             {
                 receive()
             }
             break;
-        case Type.requestVIM:
+        case Type.requestBIM:
             if(sendRequestBIM())
             {
                 receive()
@@ -398,7 +398,7 @@ class Communication {
         }
         
         sleep(2)
-        while(type != Type.storeVIM)
+        while(type != Type.storeBIM)
         {
             if (send())
             {
@@ -547,7 +547,7 @@ class Communication {
     
     private func sendRequestBIM() -> Bool{
         let msg = Packet(size: MemoryLayout<Int32>.size + MemoryLayout<UInt16>.size + 1)
-        msg.push_byte(data: Type.requestVIM.returnChar())
+        msg.push_byte(data: Type.requestBIM.returnChar())
         msg.push_UInt16(data: roomNum)
         
         return sendData(msg: msg)
@@ -555,7 +555,7 @@ class Communication {
     
     private func sendSaveBIM() -> Bool {
         let msg = Packet(size: MemoryLayout<Int32>.size + MemoryLayout<UInt16>.size * (3 + 1) + MemoryLayout<Float>.size * (4 + 3) + occupancyGrid.count + 1)
-        msg.push_byte(data: Type.storeVIM.returnChar())
+        msg.push_byte(data: Type.storeBIM.returnChar())
         
         msg.push_UInt16(data: UInt16(gridSizeX))
         msg.push_UInt16(data: UInt16(gridSizeY))
@@ -665,11 +665,11 @@ class Communication {
             let msg = data.get_body()
             print(String(bytes: msg, encoding: String.Encoding.utf8)!)
             
-        case Type.storeVIM.returnChar():
+        case Type.storeBIM.returnChar():
             let msg = data.get_body()
             print(String(bytes: msg, encoding: String.Encoding.utf8)!)
             
-        case Type.requestVIM.returnChar():
+        case Type.requestBIM.returnChar():
             if (true)
             {
                 gridSizeX = Int(data.pop_UInt16())
