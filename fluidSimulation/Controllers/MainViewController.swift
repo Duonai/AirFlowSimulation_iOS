@@ -1060,7 +1060,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelega
             
     func calculate_grid() {
         if imageLoadMode && imageDetected {
-            comms.setRequestVIMType()
+            comms.setRequestBIMType()
             comms.storeAddr(address: "")
             comms.setRoomNum(RoomNum: 2)
             if !madeConnection {
@@ -1099,7 +1099,7 @@ class MainViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelega
             gridSizeY = pointCloudRenderer.gridSizeY
             gridSizeZ = pointCloudRenderer.gridSizeZ
             
-            comms.initializeForVIM(gridSizeX: pointCloudRenderer.gridSizeX, gridSizeY: pointCloudRenderer.gridSizeY, gridSizeZ: pointCloudRenderer.gridSizeZ,
+            comms.initializeForBIM(gridSizeX: pointCloudRenderer.gridSizeX, gridSizeY: pointCloudRenderer.gridSizeY, gridSizeZ: pointCloudRenderer.gridSizeZ,
                                    distXL: pointCloudRenderer.mxLen, distXR: pointCloudRenderer.pxLen,
                                    distYU: pointCloudRenderer.pyLen, distYD: pointCloudRenderer.myLen,
                                    roomSizeX: pointCloudRenderer.gridLengthX, roomSizeY: pointCloudRenderer.gridLengthY, roomSizeZ: pointCloudRenderer.gridLengthZ, roomNum: 2)
