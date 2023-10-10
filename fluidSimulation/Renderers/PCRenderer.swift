@@ -251,6 +251,10 @@ final class PCRenderer {
             gridLengthY = pc_max_y - pc_min_y
             gridLengthZ = P2 - P3
         }
+
+        gridSizeX = Int(gridLengthX/0.1)
+        gridSizeY = Int(gridLengthY/0.1)
+        gridSizeZ = Int(gridLengthZ/0.1)
         
         for i in 0 ..< currentPointIndex{
             let x = Float(cos(rotationValue)) * particlesBuffer[i].position.x + Float(sin(rotationValue)) * particlesBuffer[i].position.z
