@@ -18,8 +18,8 @@ public enum Type{
     case provideACInfo
     case provideOccupancy
     case requestPhysicalValue
-    case storeVIM
-    case requestVIM
+    case storeBIM
+    case requestBIM
     case requestGraph
     
     func returnChar() -> Byte {
@@ -41,9 +41,9 @@ public enum Type{
             return 0x14
         case .requestPhysicalValue:
             return 0x12
-        case .storeVIM:
+        case .storeBIM:
             return 0x16
-        case .requestVIM:
+        case .requestBIM:
             return 0x17
         case .requestGraph:
             return 0x18
